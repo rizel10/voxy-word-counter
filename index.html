@@ -1,0 +1,33 @@
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+  <label for="text_content">Insert text:</label>
+  <input type="text" id="text_content" name="text_content"><br><br>
+  <button type="submit" id="button_1">Submit</button>
+  <hr>
+  <div id="counter">
+    Word count: None
+  </div>
+  <br>
+
+
+  <script>
+    $("#button_1").on("click", function(e) {
+      e.preventDefault();
+      $.ajax({
+        url: "http://localhost:8000/",
+        type: "POST",
+        data: { content: $("#text_content").val() },
+        success:function(result) {
+          var word_count;
+          word_count = "Word count: " + result
+          $('#counter').html(word_count);
+        },
+        error:function(result) {
+          alert('no text provided');
+        }
+      });
+  });
+  </script>
+</body>
